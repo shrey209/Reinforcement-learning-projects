@@ -1,5 +1,6 @@
 import random
 import numpy as np
+import json
 
 class TicTacToe:
     def __init__(self, players):
@@ -29,9 +30,9 @@ class TicTacToe:
 
     def checkWin(self):
         winning_combinations = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],  # rows
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],  # columns
-            [0, 4, 8], [2, 4, 6]              # diagonals
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
         ]
         for combo in winning_combinations:
             a, b, c = combo
@@ -85,6 +86,12 @@ class Player:
             self.q_table[state][action_index] += alpha * (reward + gamma * max_future_q - self.q_table[state][action_index])
         self.states.clear()
 
+    def save_q_table(self, filename="q_table.jsonl"):
+        with open(filename, "w") as f:
+            for state, values in self.q_table.items():
+                entry = {"state": list(state), "q_values": values}
+                f.write(json.dumps(entry) + "\n")
+
 
 def main():
     player1 = Player("Player1", "AI", 0.99)
@@ -121,6 +128,10 @@ def main():
 
     print("Wins:", wins, "Losses:", losses, "Ties:", ties)
     print("Tic-tac-toe game completed!")
+
+    # Save Q-tables to files
+    player1.save_q_table("player1_q_table.jsonl")
+    player2.save_q_table("player2_q_table.jsonl")
 
 
 if __name__ == "__main__":
