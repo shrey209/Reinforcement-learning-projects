@@ -60,7 +60,41 @@ class TicTacToe:
         self.winner = ""
 
 class player:
-    def __init__(self, name):
+     def __init__(self, name, strategy, epsilon):
+        self.name = name
+        self.strategy = strategy
+        self.epsilon = epsilon
+        self.q_table = {}
+        self.states = []
+        
+     def makeMove(self, board):
+        validMoves = [] 
+        for x in range(len(board)):
+            if(board[x] == " "):
+                validMoves.append(x)
+        if(self.strategy == "human"):
+            print("Your valid moves are:", validMoves)
+            print("Where would you like to move?")
+            move = int(input())
+            return move
+        elif(self.strategy == "random"):
+            return random.choice(validMoves)
+        elif(self.strategy == "AI"):
+            state = tuple(board)
+            move_index = 0
+            if(state not in self.q_table):
+                self.q_table[state] = [0 for x in range(len(validMoves))]
+            if(random.random() < self.epsilon):
+                move_index = random.randint(0, len(validMoves)-1)
+                move = validMoves[move_index]
+            else:
+                move_index = np.argmax(self.q_table[state])
+                move = validMoves[move_index]
+            self.states.append((state, move_index))
+            return move
+        
+   
+
 
                
 
