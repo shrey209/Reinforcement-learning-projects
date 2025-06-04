@@ -17,7 +17,17 @@ class TicTacToe:
         print(" ", self.board[6], "|", self.board[7], "|", self.board[8])
 
     def play(self):
-
+        while(True):
+            move = self.players[0].makeMove(self.board)
+            self.board[move] = "X"
+            self.checkForWin()
+            if(self.gameOver):
+                break
+            move = self.players[1].makeMove(self.board)
+            self.board[move] = "O"
+            self.checkForWin()
+            if(self.gameOver):
+                break
     
     def checkWin(self):
         winning_combinations = [
@@ -31,13 +41,14 @@ class TicTacToe:
             [2, 4, 6]
         ]
         for combination in winning_combinations:
-            if self.board[combination[0]] != " " and self.board[combination[0]] == self.board[combination[1]] == self.board[combination[2]]:
-                if self.board[combination[0]] == "X":
+           if  self.board[combination[0]]!=" " and self.board[combination[0]] ==self.board[combination[1]] == self.board[combination[2]] :
+                if(self.board[i] == "X"):
                     self.winner = 0
                     self.gameOver = True
                 else:
                     self.winner = 1
                     self.gameOver = True
+            
         if " " not in self.board:
             self.gameOver = True
             self.winner = 2
