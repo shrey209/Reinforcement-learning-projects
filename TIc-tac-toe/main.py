@@ -93,6 +93,13 @@ class player:
             self.states.append((state, move_index))
             return move
         
+        def updateQTable(self, reward):
+             alpha = 0.1  
+             gamma = 0.9 
+             for (state, action_index) in self.states:
+                max_future_q = max(self.q_table[state])  
+                self.q_table[state][action_index] += alpha * (reward + gamma * max_future_q - self.q_table[state][action_index])
+                self.states.clear()
    
 
 
