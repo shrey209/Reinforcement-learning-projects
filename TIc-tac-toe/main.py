@@ -53,7 +53,14 @@ class TicTacToe:
             self.gameOver = True
             self.winner = 2
         return
+    
+    def reset(self):
+        self.board = [" " for x in range(9)]
+        self.gameOver = False
+        self.winner = ""
 
+class player:
+    def __init__(self, name):
 
                
 
