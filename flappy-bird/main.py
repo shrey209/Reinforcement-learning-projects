@@ -4,8 +4,8 @@ import gymnasium
 
 
 def main():
-    env = gymnasium.make("FlappyBird-v0", render_mode="human", use_lidar=True)
-
+    # env = gymnasium.make("FlappyBird-v0", render_mode="human", use_lidar=False)
+    env = gymnasium.make("CartPole-v1", render_mode="human")
     obs, _ = env.reset()
     while True:
     
