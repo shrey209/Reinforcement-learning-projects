@@ -11,8 +11,8 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 class Agent:
     def __init__(self):
-        # Hardcoded hyperparameters
-        self.replay_memory_size = 100000
+        
+        self.replay_memory_size = 10000
         self.batch_size = 32
         self.epsilon_init = 1.0
         self.epsilon_decay = 0.9995
